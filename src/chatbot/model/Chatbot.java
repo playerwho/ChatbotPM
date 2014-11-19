@@ -196,15 +196,37 @@ public class Chatbot
 		{
 			if(userInputChecker(input))
 			{
-						
+				conversation = "That was nice - you removed it from the list";		
 			}
 			else
 			{
-			
+				conversation = "that wasnt in the conversation before";
 			}
 		}
 		
 		return conversation;
+	}
+	
+	private String userTopic(String userInput)
+	{
+		String userBasedResponse = "";
+		
+		int randomUserTopic = (int) (Math.random() * 6);
+		
+		switch(randomUserTopic)
+		{
+			case 1:
+				userBasedResponse = myUser.isGlasses() + "is the response for the bifocals!";
+				break;
+			case 0:
+				userBasedResponse = myUser.getUserName() + "is the name of a leader!";
+				break;
+			default:
+				userBasedResponse = myUser.getAge() + "is an age of time";
+				break;
+		}
+		
+		return userBasedResponse;
 	}
 	
 	private boolean userInputChecker(String userInput)
