@@ -91,10 +91,7 @@ public class ChatbotPanel extends JPanel
 		try
 		{
 		doomlbl = new JLabel((new ImageIcon(ImageIO.read(new File("C:/Users/awid5247/Downloads/doomlogo.jpg")))));
-		baseLayout.putConstraint(SpringLayout.NORTH, doomlbl, 0, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, doomlbl, 0, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.SOUTH, doomlbl, 400, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.EAST, doomlbl, 0, SpringLayout.EAST, this);
+		
 		doomlbl.setBackground(new Color(240, 240, 240));
 		}
 		catch(IOException e)
@@ -122,6 +119,10 @@ public class ChatbotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.NORTH, firstTextField, 98, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.WEST, firstTextField, 0, SpringLayout.WEST, firstButton);
 		baseLayout.putConstraint(SpringLayout.SOUTH, firstTextField, 168, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, doomlbl, 0, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, doomlbl, 0, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, doomlbl, 400, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, doomlbl, 0, SpringLayout.EAST, this);
 	}
 	
 	/**

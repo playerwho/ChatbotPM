@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * The chatbot model class. used for checking and manipulating strings.
  * 
  * @author Austin Widmeier
- * @version 1.8 11/7/2014
+ * @version 1.9 11/7/2014
  */
 public class Chatbot
 {
@@ -96,83 +96,117 @@ public class Chatbot
 		
 		if(getChatCount() < 5)
 		{
-			//ask questions about all data members
-			//you will need ifs or a switch
-			//assign via myUser.set
-			if(getChatCount() == 0)
-			{
-				 myUser.setUserName(currentInput);
-				 result = "good name " + myUser.getUserName() + ", what is your age?";
-			}
-			else if(getChatCount() == 1)
-			{
-				int userAge = Integer.parseInt(currentInput);
-				myUser.setAge(userAge);
-			}
-			
-			
+			result = introduceUser(currentInput);	
 		}
 		else if (currentInput != null && currentInput.length() > 0)
 		{
-			int randomPosition = (int) (Math.random() * 6);
-			if (randomPosition == 0)
-			{
-				if (stringChecker(currentInput))
-				{
-					result = "very too long";
-				}
-				else
-				{
-				result = "hiiii";
-				}
-			}
-			else if (randomPosition == 1)
-			{
-				if (contentChecker(currentInput))
-				{
-					result = "CARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTS";
-				} 
-				else
-				{
-					result = "oh";
-				}
-			}
-			else if( randomPosition == 2)
-			{
-				if (memeChecker(currentInput))
-				{
-					result = "Wow " + currentInput + " is a meme. yay!";
-				}
-				else
-				{
-					result = "not a meme, try again";
-				}
-			}
-			else if(randomPosition == 3)
-			{
-				//talk about user
-			}
-			else if(randomPosition == 4)
-			{
-				// add to list
-				userInputList.add(currentInput);
-				result = "Thank you for the comment";
-			}
-			else
-			{
-				if(userInputChecker(currentInput))
-				{
-							
-				}
-				else
-				{
-				
-				}
-			}
+			result = randomChatConversation(currentInput);
+		}
+		else
+		{
+			result = "use Words!!";
+			chatCount--;
 		}
 		updateChatCount();
 		return result;
 	}
+	
+	private String introduceUser(String input)
+	{
+		String userQuestion = "";
+		//ask questions about all data members
+		//you will need ifs or a switch
+		//assign via myUser.set
+		if(getChatCount() == 0)
+		{
+			 myUser.setUserName(input);
+			 userQuestion = "good name " + myUser.getUserName() + ", what is your age?";
+		}
+		else if(getChatCount() == 1)
+		{
+			int userAge = Integer.parseInt(input);
+			myUser.setAge(userAge);
+			userQuestion = myUser.getAge() + " is nice! I'm currently 5061, do you need the bifocals?";
+		}
+		else if(getChatCount() == 2)
+		{
+			boolean userGlasses = Boolean.parseBoolean(input);
+			myUser.setGlasses(userGlasses);
+			userQuestion = "Bifocals are a sign of weakness. How many deadly animals do you have?";
+		}
+		else if(getChatCount() == 3)
+		{
+			int userPets = Integer.parseInt(input);
+			myUser.setPets(userPets);
+			userQuestion = myUser.getPets() +" is a good number. I have 3 that are able to rip a demonic being in half! anything else you would like to talk about?";
+		}
+		
+		return userQuestion;
+	}
+	
+	private String randomChatConversation(String input)
+	{
+		String conversation = "";
+		
+		int randomPosition = (int) (Math.random() * 6);
+		if (randomPosition == 0)
+		{
+			if (stringChecker(input))
+			{
+				conversation = "very too long";
+			}
+			else
+			{
+			conversation = "hiiii";
+			}
+		}
+		else if (randomPosition == 1)
+		{
+			if (contentChecker(input))
+			{
+				conversation = "CARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTSCARPARTS";
+			} 
+			else
+			{
+				conversation = "oh";
+			}
+		}
+		else if( randomPosition == 2)
+		{
+			if (memeChecker(input))
+			{
+				conversation = "Wow " + input + " is a meme. yay!";
+			}
+			else
+			{
+				conversation = "not a meme, try again";
+			}
+		}
+		else if(randomPosition == 3)
+		{
+			//talk about user
+		}
+		else if(randomPosition == 4)
+		{
+			// add to list
+			userInputList.add(input);
+			conversation = "Thank you for the comment";
+		}
+		else
+		{
+			if(userInputChecker(input))
+			{
+						
+			}
+			else
+			{
+			
+			}
+		}
+		
+		return conversation;
+	}
+	
 	private boolean userInputChecker(String userInput)
 	{
 		boolean matchesInput = false;
