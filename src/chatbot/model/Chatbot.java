@@ -111,6 +111,11 @@ public class Chatbot
 		return result;
 	}
 	
+	/**
+	 * interacts with user based on chat count
+	 * @param input user input
+	 * @return
+	 */
 	private String introduceUser(String input)
 	{
 		String userQuestion = "";
@@ -144,6 +149,11 @@ public class Chatbot
 		return userQuestion;
 	}
 	
+	/**
+	 * interacts with user based on checkers
+	 * @param input user input
+	 * @return
+	 */
 	private String randomChatConversation(String input)
 	{
 		String conversation = "";
@@ -218,6 +228,11 @@ public class Chatbot
 		return conversation;
 	}
 	
+	/**
+	 * a keyboard mashing detector
+	 * @param input user input
+	 * @return mashed checker
+	 */
 	private String mashingDetected(String input)
 	{
 		String mashed = "";
@@ -230,6 +245,11 @@ public class Chatbot
 		return mashed;
 	}
 	
+	/**
+	 * mashing keyboard detector
+	 * @param input user input
+	 * @return noMashing Checker
+	 */
 	private String noMashingDetected(String input)
 	{
 		String noMashing = "Thank you for not destroying my keyboard";
@@ -242,11 +262,16 @@ public class Chatbot
 		return noMashing;		
 	}
 	
+	/**
+	 * a switch consisting of topics
+	 * @param userInput
+	 * @return userBasedResponse
+	 */
 	private String userTopic(String userInput)
 	{
 		String userBasedResponse = "";
 		
-		int randomUserTopic = (int) (Math.random() * 6);
+		int randomUserTopic = (int) (Math.random() * 7);
 		
 		switch(randomUserTopic)
 		{
@@ -264,6 +289,11 @@ public class Chatbot
 		return userBasedResponse;
 	}
 	
+	/**
+	 * checks for users by name
+	 * @param userInput
+	 * @return matchesInput
+	 */
 	private boolean userInputChecker(String userInput)
 	{
 		boolean matchesInput = false;
