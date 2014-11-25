@@ -59,8 +59,7 @@ public class ChatbotPanel extends JPanel
 		baseLayout = new SpringLayout();
 		chatArea = new JTextArea(15,35);
 		chatPane = new JScrollPane(chatArea);
-		baseLayout.putConstraint(SpringLayout.NORTH, chatPane, 150, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.SOUTH, chatPane, -100, SpringLayout.SOUTH, this);
+		
 		
 		setupPane();
 		setupPanel();
@@ -111,6 +110,8 @@ public class ChatbotPanel extends JPanel
 	 */
 	private void setupLayout()
 	{
+		baseLayout.putConstraint(SpringLayout.NORTH, chatPane, 150, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, chatPane, -100, SpringLayout.SOUTH, this);
 		baseLayout.putConstraint(SpringLayout.WEST, chatPane, 270, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.WEST, firstButton, 41, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.EAST, firstButton, -500, SpringLayout.EAST, this);

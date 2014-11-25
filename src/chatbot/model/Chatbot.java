@@ -148,7 +148,7 @@ public class Chatbot
 	{
 		String conversation = "";
 		
-		int randomPosition = (int) (Math.random() * 6);
+		int randomPosition = (int) (Math.random() * 7);
 		if (randomPosition == 0)
 		{
 			if (stringChecker(input))
@@ -184,13 +184,24 @@ public class Chatbot
 		}
 		else if(randomPosition == 3)
 		{
-			//talk about user
+			conversation = userTopic(input);
 		}
 		else if(randomPosition == 4)
 		{
 			// add to list
 			userInputList.add(input);
 			conversation = "Thank you for the comment";
+		}
+		else if(randomPosition == 5)
+		{
+			if (masher(input))
+			{
+				conversation = mashingDetected(input);
+			}
+			else
+			{
+				conversation = noMashingDetected(input);
+			}
 		}
 		else
 		{
@@ -205,6 +216,30 @@ public class Chatbot
 		}
 		
 		return conversation;
+	}
+	
+	private String mashingDetected(String input)
+	{
+		String mashed = "";
+		
+		mashed = input.substring(input.length()/2);
+		mashed += input.substring(input.length()/2);
+		mashed += input.substring(input.length()/2);
+		mashed += input.substring(input.length()/2);
+		
+		return mashed;
+	}
+	
+	private String noMashingDetected(String input)
+	{
+		String noMashing = "Thank you for not destroying my keyboard";
+		
+		if(input.length() > 1)
+		{
+			noMashing += input.substring(input.length()/3, input.length()/2);
+		}
+		
+		return noMashing;		
 	}
 	
 	private String userTopic(String userInput)
@@ -257,11 +292,11 @@ public class Chatbot
 	 * @param input - user input         
 	 * @return boolean tooLong
 	 */
-	private boolean stringChecker(String input)
+	private boolean stringChecker(String userInput)
 	{
 		boolean tooLong = false;
 
-		String Str1 = new String(input);
+		String Str1 = new String(userInput);
 
 		System.out.print("String Length :");
 
@@ -280,13 +315,13 @@ public class Chatbot
 	 * @param input - is user input        
 	 * @return a meme
 	 */
-	private boolean memeChecker(String input)
+	private boolean memeChecker(String userInput)
 	{
 		boolean isAMeme = false;
 
 		for (String currentMeme : memeList)
 		{
-			if (input.equalsIgnoreCase(currentMeme))
+			if (userInput.equalsIgnoreCase(currentMeme))
 			{
 				isAMeme = true;
 			}
@@ -294,7 +329,7 @@ public class Chatbot
 
 		for (int loopCounter = 0; loopCounter < memeList.size(); loopCounter++)
 		{
-			if (input.equalsIgnoreCase(memeList.get(loopCounter)))
+			if (userInput.equalsIgnoreCase(memeList.get(loopCounter)))
 			{
 				isAMeme = true;
 			}
@@ -302,17 +337,34 @@ public class Chatbot
 
 		return isAMeme;
 	}
+	
+	/**
+	 * checks for mashing of the keyboard
+	 * @param userInput user supplied text
+	 * @return mashing detected
+	 */
+	private boolean masher(String userInput)
+	{
+		boolean isMashing = false;
+		
+		if(userInput.indexOf("asd") > -1)
+		{
+			isMashing = true;
+		}
+		
+		return isMashing;
+	}
 
 	/**
 	 * checks user input for special topic
 	 * @param input - user input            
 	 * @return the string
 	 */
-	private boolean contentChecker(String input)
+	private boolean contentChecker(String userInput)
 	{
 		boolean containsCars = false;
 
-		if (input.contains("car"))
+		if (userInput.contains("car"))
 		{
 			containsCars = true;
 		}
@@ -325,11 +377,11 @@ public class Chatbot
 	 * @param Checks - the user reponse         
 	 * @return if user input is "bye", then application is ok to quit
 	 */
-	public boolean quitChecker(String input)
+	public boolean quitChecker(String userInput)
 	{
 		boolean okToQuit = false;
 
-		if (input != null && input.equalsIgnoreCase("Bye"))
+		if (userInput != null && userInput.equalsIgnoreCase("Bye"))
 		{
 			okToQuit = true;
 		}
