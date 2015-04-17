@@ -119,9 +119,7 @@ public class Chatbot
 	private String introduceUser(String input)
 	{
 		String userQuestion = "";
-		//ask questions about all data members
-		//you will need ifs or a switch
-		//assign via myUser.set
+		
 		if(getChatCount() == 0)
 		{
 			 myUser.setUserName(input);

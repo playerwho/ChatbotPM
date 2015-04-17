@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.io.*;
-import javax.imageio.*;
 import chatbot.controller.ChatbotAppController;
 import chatbot.view.ChatbotFrame;
 
@@ -21,6 +19,10 @@ public class ChatbotPanel extends JPanel
 	 * adds a button to the panel
 	 */
 	private JButton firstButton;
+	
+	private JButton submitButton; 
+	
+	private JButton loadButton;
 	
 	/**
 	 * adds a text field to the panel
@@ -46,6 +48,9 @@ public class ChatbotPanel extends JPanel
 	 * adds a doomlbl, aka the background image when ran
 	 */
 	private JLabel doomlbl;
+	private JButton saveButton;
+	
+	
 	
 	/**
 	 * connects chatbot panel to base controller
@@ -54,11 +59,21 @@ public class ChatbotPanel extends JPanel
 	public ChatbotPanel(ChatbotAppController baseController)
 	{
 		this.baseController = baseController;
+		
 		firstButton = new JButton("Send");
+		submitButton = new JButton("Submit");
+		loadButton = new JButton("Load previous chat");
+		saveButton = new JButton("Save Chat");
+		
 		firstTextField = new JTextField(20);
+		
 		baseLayout = new SpringLayout();
+
 		chatArea = new JTextArea(15,35);
+		
 		chatPane = new JScrollPane(chatArea);
+		
+		
 		
 		
 		setupPane();
@@ -86,23 +101,19 @@ public class ChatbotPanel extends JPanel
 	 */
 	private void setupPanel()
 	{
-		this.setLayout(baseLayout);
-		try
-		{
-		doomlbl = new JLabel((new ImageIcon(ImageIO.read(new File("C:/Users/awid5247/Downloads/doomlogo.jpg")))));
-		
+		doomlbl = new JLabel(new ImageIcon(ChatbotPanel.class.getResource("/chatbot/addOns/doomlogo.jpg")));
 		doomlbl.setBackground(new Color(240, 240, 240));
-		}
-		catch(IOException e)
-		{
-			System.out.println("Image does not exist");
-		}
 		
-		add(doomlbl);
+		this.setLayout(baseLayout);
+		this.add(doomlbl);
 		this.add(chatPane);
 		this.setSize(700, 400);
 		this.add(firstButton);
+		this.add(submitButton);
+		this.add(loadButton);
+		this.add(saveButton);
 		this.add(firstTextField);
+		setComponentZOrder(doomlbl, this.getComponentCount()-1);	
 	}
 	
 	/**
@@ -124,6 +135,13 @@ public class ChatbotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.WEST, doomlbl, 0, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.SOUTH, doomlbl, 400, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.EAST, doomlbl, 0, SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, submitButton, 50, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, loadButton, 50, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, loadButton, 200, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, submitButton, 500, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.EAST, submitButton, 600, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, saveButton, 50, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, saveButton, 350, SpringLayout.WEST, this);
 	}
 	
 	/**
@@ -144,6 +162,32 @@ public class ChatbotPanel extends JPanel
 				firstTextField.setText("");
 				firstTextField.setCursor(getCursor());
 				firstTextField.requestFocus();
+			}
+		});
+		
+		saveButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String chat = chatArea.getText();
+				baseController.saveText(chat, true);
+			}
+		});
+		
+		loadButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String savedChat = baseController.readTextFromFile();
+				
+				if(savedChat.length()<1)
+				{
+					chatArea.setText("No Words Found!");
+				}
+				else
+				{
+					chatArea.setText(savedChat);
+				}
 			}
 		});
 	}
